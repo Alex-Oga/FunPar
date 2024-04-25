@@ -1,0 +1,118 @@
+In-Class Exercise 3
+
+1. sumPairList(xs: List[(Int, Int)]): Int adds up all the numbers (both in the first and second
+coordinates). For example,sumPairList(List((5,2), (1,4), (2, 7))) ==> 21 // 5+2+1+4+2+7
+
+
+2. firsts(xs: List[(Int, Int)]): List[Int] returns a list that extracts the first coordinate.
+firsts(List((5,2), (1,4), (2, 7))) ==> List(5, 1, 2)
+
+
+3. seconds(xs: List[(Int, Int)]): List[Int] returns a list that extracts the second coordinate.
+seconds(List((5,2), (1,4), (2, 7))) ==> List(2, 4, 7)
+
+
+4. pairSumList(xs: List[(Int, Int)]): (Int, Int) returns a pair where the first number is the sum
+of the first coordiates, and the second number is the sum of the second coordiates.
+pairSumList(List((5,2), (1,4), (2, 7))) ==> (8, 13) // 5+1+2 and 2+4+7
+
+
+  def first(xs: List[(Int, Int)]): Int = {
+    if xs.isEmpty then 0
+    else xs.head._1 + first(xs.tail)
+  }
+  def second(xs: List[(Int, Int)]): Int = {
+    if xs.isEmpty then 0
+    else xs.head._2 + second(xs.tail)
+  }
+
+
+In-Class Exercise 4
+
+1. Write a function def find(xs: List[(Int, String)], key: Int): Option[String] that takes
+in a list of key-value (Int,String)-pairs and returns the string value matching the given integer key. It
+should return None if nothing matches it.
+
+2. Write a function def rev(xs: List[Int]): List[Int] that takes a list and produces the reverse of
+the input list. Can you write it as a tail-recursive function?
+
+  def rev(xs: List[Int]): List[Int] = xs match {
+    case Nil => List()
+    case h::t => {
+      if t.isEmpty then List()
+      else {
+        rev(t):::List(h)
+      }
+    }
+  }
+
+
+3. Write a function def fib(n: Int): Long that computes the n-th Fibonacci number in a tail-recursive
+manner.
+
+  def fib(n: Int): Long = {
+    if n <= 0 then 0
+    else if n == 1 then 1
+    else fib(n-1)+fib(n-2)
+  }
+
+In-Class Exercise 5
+
+Use pattern matching (and practically no other method calls) to implement the following functions:
+
+1. 
+def zip(x : List[Int], y: List[Int]) : List[(Int, Int)] takes, for example,
+(List(3,2,5), List(6,1,9))
+and returns List((3,6), (2,1), (5,9)). Hint: you can pattern match on tuples. case (Nil, Nil)
+is valid.
+
+2.
+def unzip(zipped : List[(Int, Int)]) : (List[Int], List[Int]) takes, for example,
+(List((3, 6), (2,1), (5,9))
+and returns (List(3, 2, 5), List(6, 1, 9)).
+
+  def unzip(zipped : List[(Int, Int)]) : (List[Int], List[Int]) = zipped match {
+    case Nil => (Nil, Nil)
+    case (zipped::tlzipped) => 
+
+  }
+
+3.
+def merge(xs: List[Int], ys: List[Int]): List[Int] takes two sorted lists xs and ys, and
+returns a "merged" sorted list (i.e., it combines the two lists into a sorted list). 
+Like the merge routine you’ve seen in merge sort, 
+your implementation should take linear time. Your actual implementation must
+be tail recursive. (Hint: Appending is expensive. Reversing a list, if done once at the end, 
+is a linear-time operation.)
+
+
+In-Class Exercise 6
+
+1.
+def unzip(xs: List[(Int,Int)]): (List[Int], List[Int]) reverses what zip does. Make it so
+that it’s polymorphic. The input can be any List[(A, B)].
+
+2. 
+def countWhile[T](xs: List[T], key: T): Int that counts the number of times key repeats itself
+in the prefix of xs.
+
+3.
+def topK(xs: List[Int], k: Int): List[Int] that tallies the elements of xs and return elements
+with the top k frequencies (if there are ties, break ties in any way you like).
+Look at Scaladoc for inspiration.
+
+4.
+Challenge [Optional]: Make merge operate efficiently on the Vector data type. Once done, update
+msort to operate directly on the vectors. If implemented properly, this should make your code way faster
+than before.
+
+L12
+
+https://stackoverflow.com/questions/15487413/simplest-way-to-count-words-in-a-file
+
+
+
+
+
+
+
